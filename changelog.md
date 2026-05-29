@@ -2,6 +2,7 @@
 
 ## 2026-05-29
 
+- Se mejoro la descripcion inicial de `README.md` para explicar con mas claridad la utilidad del SDK, su enfoque declarativo, el uso de `/projects`, la API `POST /projects` y el browser manager configurable.
 - Se actualizo `AGENT.md` para definir que `docs/actions.md` y `docs/guide.md` solo deben modificarse cuando cambie la libreria usable del SDK para construir pasos/flujos; estructura, instalacion y operacion general pertenecen a `README.md`.
 - Se reemplazo por completo `docs/guide.md` con un manual de uso para construir archivos `projects/<project>/steps/*.js`, incluyendo contrato de pasos, interpolacion, `goto`, esperas, logs, interacciones, extracciones, validaciones, control de flujo, patrones recomendados y ejemplo POST de `projects/example`.
 - Se recreo `docs/actions.md` como indice rapido hacia la guia completa y catalogo de acciones disponibles.

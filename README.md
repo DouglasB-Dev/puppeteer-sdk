@@ -1,6 +1,8 @@
 # Puppeteer SDK
 
-SDK funcional para ejecutar automatizaciones de Puppeteer con Google Chrome desde arrays de acciones JSON/JS o desde proyectos en `/projects`. La base es una libreria de acciones + un manejador que las ejecuta paso a paso. Incluye validacion basica, interpolacion de variables, condicionales, loops, reintentos, hooks, registro de acciones personalizadas, rutas HTTP, runner de proyectos, PM2 e instaladores.
+SDK para automatizar flujos web con Puppeteer y Google Chrome mediante secuencias declarativas de pasos en JavaScript. Permite construir proyectos de scraping o automatizacion dentro de `/projects`, ejecutar acciones como navegacion, clicks, esperas, extraccion de datos, validaciones, logs y screenshots, y exponerlos por API HTTP con un contrato simple basado en `POST /projects`.
+
+Incluye un browser manager configurable para mantener Chrome abierto, cerrar el navegador por peticion o conservar sesiones y cookies, ademas de soporte para PM2, instaladores para Ubuntu/Windows y documentacion para crear flujos reutilizables sin tocar el core del SDK.
 
 ## Sobre `class` en JavaScript
 
