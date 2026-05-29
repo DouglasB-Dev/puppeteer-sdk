@@ -2,6 +2,7 @@
 
 ## 2026-05-29
 
+- Se actualizo `AGENT.md` para definir que `docs/actions.md` y `docs/guide.md` solo deben modificarse cuando cambie la libreria usable del SDK para construir pasos/flujos; estructura, instalacion y operacion general pertenecen a `README.md`.
 - Se reemplazo por completo `docs/guide.md` con un manual de uso para construir archivos `projects/<project>/steps/*.js`, incluyendo contrato de pasos, interpolacion, `goto`, esperas, logs, interacciones, extracciones, validaciones, control de flujo, patrones recomendados y ejemplo POST de `projects/example`.
 - Se recreo `docs/actions.md` como indice rapido hacia la guia completa y catalogo de acciones disponibles.
 - Se actualizo `README.md` para apuntar al manual `docs/guide.md` como referencia principal al crear secuencias de pasos.

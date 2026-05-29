@@ -4,8 +4,10 @@ Reglas operativas para cualquier persona o IA que trabaje en este SDK.
 
 ## Mandatorios
 
-- Antes de cambiar codigo, leer `README.md`, `docs/actions.md`, este archivo y `changelog.md`.
-- Cada cambio funcional, estructural o de contrato debe actualizar `README.md`, `docs/actions.md` y `changelog.md` en el mismo turno.
+- Antes de cambiar codigo, leer `README.md`, este archivo y `changelog.md`. Si el cambio toca la libreria usable del SDK para construir pasos/flujos, leer tambien `docs/actions.md` y `docs/guide.md`.
+- Cada cambio funcional, estructural o de contrato debe actualizar `README.md` y `changelog.md` en el mismo turno, cuando corresponda.
+- `docs/actions.md` y `docs/guide.md` solo se modifican cuando cambia la libreria usable del SDK: acciones, propiedades, opciones, utilidades o comportamientos disponibles para construir flujos como `projects/example`.
+- No modificar `docs/actions.md` ni `docs/guide.md` para explicar estructura del proyecto, instalacion, PM2, scripts, reglas internas, arquitectura o decisiones operativas. Esa informacion pertenece a `README.md`, `AGENT.md` o `changelog.md`, segun corresponda.
 - `changelog.md` debe explicar que cambio se hizo, para que se hizo y que archivos o areas quedan afectadas.
 - Usar `pnpm` como gestor principal. Los comandos esperados son `pnpm run start`, `pnpm run dev`, `pnpm run check` y `pnpm test`.
 - No lanzar Puppeteer directamente desde proyectos o rutas. Todo navegador/pagina debe pasar por `src/lib/browser-manager.js`.
@@ -22,7 +24,7 @@ Reglas operativas para cualquier persona o IA que trabaje en este SDK.
 - `src/routes/scraper-routes.js`: API generica del SDK para ejecutar arrays de acciones y flujos predefinidos.
 - `src/lib/browser-manager.js`: unico responsable de iniciar Google Chrome, crear paginas, limpiar pestanas y decidir si el navegador queda abierto o se cierra por peticion.
 - `src/lib/action-handler.js`: ejecuta arrays de objetos, aplica interpolacion, reintentos, hooks, resultados y captura de logs de consola.
-- `src/lib/actions/*`: catalogo de acciones atomicas. Toda accion nueva debe documentarse en `docs/actions.md`.
+- `src/lib/actions/*`: catalogo de acciones atomicas. Toda accion nueva o cambio de parametros disponibles para flujos debe documentarse en `docs/actions.md` y `docs/guide.md`.
 - `projects/redirect.js`: router/loader de proyectos. Recibe `body.project`, resuelve `projects/<project>/start.js` por defecto y entrega helpers como `runSteps`.
 - `projects/<project>/start.js`: orquestador del proyecto. Puede importar pasos desde `projects/<project>/steps/*.js` y pasar variables recibidas por POST.
 - `projects/<project>/steps/*.js`: archivos que devuelven bloques de arrays con objetos de acciones.
@@ -70,8 +72,20 @@ Los bloques de acciones pueden emitir logs con `consoleLog` o `log`. El handler 
 
 ## Documentacion
 
-Cuando se agregue o cambie una accion:
+`README.md` es la documentacion del proyecto: estructura, instalacion, comandos, rutas HTTP, PM2, forma de trabajar en `/projects`, archivos sensibles y operacion general.
+
+`docs/actions.md` y `docs/guide.md` son documentacion de uso del SDK para usuarios que construyen secuencias de pasos. No son una explicacion concreta del proyecto, su estructura, instalacion ni operacion.
+
+Modificar `docs/actions.md` y `docs/guide.md` solo cuando se agregue o cambie una capacidad que el usuario pueda usar en archivos como `projects/example/steps/step_1.js`, por ejemplo:
+
+- Una accion nueva.
+- Una propiedad nueva o modificada en una accion existente.
+- Un helper, utilidad, interpolacion o comportamiento nuevo disponible al construir flujos.
+- Un cambio en el resultado, contexto, logs o datos que afecte como se escriben pasos.
+
+En esos casos:
 
 - Actualizar `docs/actions.md` con parametros, ejemplo y comportamiento.
-- Actualizar `README.md` si cambia un flujo visible, comando, ruta o configuracion.
+- Actualizar `docs/guide.md` con uso practico y ejemplos de construccion de pasos.
+- Actualizar `README.md` solo si tambien cambia un flujo visible, comando, ruta, configuracion, estructura u operacion del proyecto.
 - Agregar una entrada en `changelog.md` con fecha, objetivo y archivos principales.
