@@ -1,0 +1,35 @@
+{
+  "variables": {
+    "baseUrl": "https://example.com"
+  },
+  "options": {
+    "verbose": true,
+    "continueOnError": false
+  },
+  "steps": [
+    {
+      "type": "goto",
+      "url": "${baseUrl}"
+    },
+    {
+      "type": "extractText",
+      "selector": "h1",
+      "saveAs": "title"
+    },
+    {
+      "type": "validateText",
+      "selector": "h1",
+      "containsText": "Example"
+    },
+    {
+      "type": "conditional",
+      "condition": { "path": "title", "includes": "Example" },
+      "then": [
+        { "type": "setData", "name": "status", "value": "ok" }
+      ],
+      "else": [
+        { "type": "setData", "name": "status", "value": "unexpected-title" }
+      ]
+    }
+  ]
+}

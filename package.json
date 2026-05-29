@@ -1,0 +1,35 @@
+{
+  "name": "puppeteer-action-framework",
+  "version": "1.0.0",
+  "description": "Framework funcional para ejecutar flujos de Puppeteer desde arrays de acciones JSON/JS.",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node scripts/run-server.js --headless",
+    "dev": "node scripts/run-server.js --window",
+    "dev:watch": "node --watch scripts/run-server.js --window",
+    "example:array": "node examples/execute-array.js",
+    "install-ubuntu": "bash install/ubuntu.sh",
+    "install-windows": "powershell -ExecutionPolicy Bypass -File install/windows.ps1",
+    "test": "node --test",
+    "check": "node --check src/server.js && node --check src/app.js && node --check src/config/env.js && node --check src/routes/scraper-routes.js && node --check src/lib/browser-manager.js && node --check src/lib/action-handler.js && node --check scripts/run-server.js && node --check projects/redirect.js && node --check projects/example/start.js && node --check projects/example/steps/step_1.js && node --check examples/execute-array.js"
+  },
+  "keywords": [
+    "puppeteer",
+    "scraping",
+    "automation",
+    "workflow",
+    "actions"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "puppeteer": "^25.1.0"
+  }
+}
