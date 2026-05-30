@@ -47,7 +47,7 @@ Invoke-RestMethod `
   -Uri "http://localhost:3000/projects" `
   -Method Post `
   -ContentType "application/json" `
-  -Body '{"project":"example","query":"hola"}'
+  -Body '{"project":"example"}'
 ```
 
 Alternativa con `curl.exe` en Windows:
@@ -55,10 +55,10 @@ Alternativa con `curl.exe` en Windows:
 ```powershell
 curl.exe -X POST "http://localhost:3000/projects" `
   -H "Content-Type: application/json" `
-  -d "{\"project\":\"example\",\"query\":\"hola\"}"
+  -d "{\"project\":\"example\"}"
 ```
 
-El ejemplo carga `projects/example/start.js`, ejecuta los pasos de `projects/example/steps/step_1.js`, busca `hola` en Google y devuelve el titulo del primer resultado en `data.firstResultTitle`.
+El ejemplo carga `projects/example/start.js`, ejecuta los pasos de `projects/example/steps/step_1.js`, abre `https://pptr.dev/` y devuelve el parrafo introductorio de Puppeteer en `data.introText`.
 
 ## Google Chrome y browser manager
 
@@ -224,7 +224,7 @@ La app monta `projects/redirect.js` en `POST /projects` y `POST /api/projects`. 
 ```bash
 curl -X POST http://localhost:3000/projects \
   -H "Content-Type: application/json" \
-  -d "{\"project\":\"example\",\"query\":\"hola\"}"
+  -d "{\"project\":\"example\"}"
 ```
 
 Estructura esperada:
@@ -260,7 +260,7 @@ export default async function start({ body, runSteps }) {
 }
 ```
 
-El proyecto `projects/example` demuestra una busqueda de `hola` en Google y extrae el titulo del primer enlace encontrado.
+El proyecto `projects/example` demuestra una extraccion simple desde `https://pptr.dev/` y devuelve el parrafo introductorio de Puppeteer.
 
 ## Interpolacion
 

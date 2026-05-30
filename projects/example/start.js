@@ -1,12 +1,12 @@
-import { googleSearchSteps } from './steps/step_1.js';
+import { puppeteerHomeSteps } from './steps/step_1.js';
 
 export default async function start({ body, runSteps }) {
-  const query = body.query ?? 'hola';
-  const steps = googleSearchSteps({ query });
+  const url = body.url ?? 'https://pptr.dev/';
+  const steps = puppeteerHomeSteps({ url });
 
   const result = await runSteps(steps, {
     variables: {
-      query
+      url
     },
     options: {
       captureConsole: true,
@@ -14,7 +14,7 @@ export default async function start({ body, runSteps }) {
     }
   });
 
-  const firstResultTitle = result.context?.data?.firstResultTitle ?? null;
+  const introText = result.context?.data?.introText ?? null;
 
   return {
     status: result.success ? 200 : 422,
@@ -22,11 +22,12 @@ export default async function start({ body, runSteps }) {
       success: result.success,
       status: result.success ? 'OK' : 'FLOW_FAILED',
       message: result.success
-        ? 'Busqueda ejecutada correctamente'
-        : 'La busqueda no pudo completarse',
+        ? 'Texto capturado correctamente'
+        : 'El texto no pudo capturarse',
       data: {
-        query,
-        firstResultTitle
+        url,
+        introText,
+        firstResultTitle: introText
       },
       sdk: result
     }

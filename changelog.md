@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-05-30
+
+- Se actualizo `projects/example` para abrir `https://pptr.dev/`, validar el parrafo introductorio de Puppeteer y devolverlo en `data.introText`.
+- Se corrigio el selector del parrafo introductorio para evitar que `validateText` leyera un `<p>` vacio en la pagina de Docusaurus.
+- Se mantuvo `data.firstResultTitle` como alias de compatibilidad para el texto extraido por el ejemplo.
+- Se sincronizo `README.md` y `docs/guide.md` con el nuevo flujo del ejemplo.
+
 ## 2026-05-29
 
 - Se mejoro la descripcion inicial de `README.md` para explicar con mas claridad la utilidad del SDK, su enfoque declarativo, el uso de `/projects`, la API `POST /projects` y el browser manager configurable.

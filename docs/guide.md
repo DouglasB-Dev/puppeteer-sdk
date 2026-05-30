@@ -28,7 +28,7 @@ import { firstSteps } from './steps/step_1.js';
 
 export default async function start({ body, runSteps }) {
   const result = await runSteps(firstSteps({
-    query: body.query ?? 'hola'
+    url: body.url ?? 'https://pptr.dev/'
   }));
 
   return {
@@ -47,11 +47,11 @@ export default async function start({ body, runSteps }) {
 `projects/stellar/steps/step_1.js`:
 
 ```js
-export const firstSteps = ({ query = 'hola' } = {}) => [
-  { type: 'consoleLog', message: `Buscando ${query}` },
-  { type: 'goto', url: `https://www.google.com/search?q=${encodeURIComponent(query)}` },
-  { type: 'waitForSelector', selector: 'a h3', visible: true },
-  { type: 'extractText', selector: 'a h3', saveAs: 'firstTitle' }
+export const firstSteps = ({ url = 'https://pptr.dev/' } = {}) => [
+  { type: 'consoleLog', message: `Abriendo ${url}` },
+  { type: 'goto', url, waitUntil: 'domcontentloaded' },
+  { type: 'waitForSelector', selector: 'main p:has(a[href="https://chromedevtools.github.io/devtools-protocol/"])', visible: true },
+  { type: 'extractText', selector: 'main p:has(a[href="https://chromedevtools.github.io/devtools-protocol/"])', attribute: 'innerText', saveAs: 'introText' }
 ];
 ```
 
@@ -908,34 +908,44 @@ Revisa el orden de los pasos. La interpolacion ocurre justo antes de ejecutar ca
 ## Ejemplo completo basado en `projects/example`
 
 ```js
-export const googleSearchSteps = ({ query = 'hola' } = {}) => [
+const EXPECTED_INTRO_TEXT = 'Puppeteer is a JavaScript library which provides a high-level API to control Chrome or Firefox over the DevTools Protocol or WebDriver BiDi. Puppeteer runs in the headless (no visible UI) by default';
+const INTRO_SELECTOR = 'main p:has(a[href="https://chromedevtools.github.io/devtools-protocol/"])';
+
+export const puppeteerHomeSteps = ({ url = 'https://pptr.dev/' } = {}) => [
   {
     type: 'consoleLog',
     level: 'info',
-    message: `Buscando "${query}" en Google`
+    message: `Abriendo ${url}`
   },
   {
     type: 'goto',
-    url: `https://www.google.com/search?q=${encodeURIComponent(query)}&hl=es&num=10`,
+    url,
     waitUntil: 'domcontentloaded',
     timeout: 45000
   },
   {
     type: 'waitForSelector',
-    selector: 'a h3',
+    selector: INTRO_SELECTOR,
     visible: true,
     timeout: 15000
   },
   {
+    type: 'validateText',
+    selector: INTRO_SELECTOR,
+    containsText: EXPECTED_INTRO_TEXT,
+    timeout: 15000
+  },
+  {
     type: 'extractText',
-    selector: 'a h3',
-    saveAs: 'firstResultTitle',
+    selector: INTRO_SELECTOR,
+    attribute: 'innerText',
+    saveAs: 'introText',
     timeout: 15000
   },
   {
     type: 'consoleLog',
     level: 'info',
-    message: 'Titulo capturado: ${firstResultTitle}'
+    message: 'Texto capturado: ${introText}'
   }
 ];
 ```
@@ -945,5 +955,5 @@ Prueba por POST:
 ```powershell
 curl.exe -X POST "http://localhost:3000/projects" `
   -H "Content-Type: application/json" `
-  -d "{\"project\":\"example\",\"query\":\"hola\"}"
+  -d "{\"project\":\"example\"}"
 ```
