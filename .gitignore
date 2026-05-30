@@ -8,3 +8,6 @@ coverage/
 artifacts/
 storage/
 .tmp/
+projects/
+!projects/redirect.js
+!projects/example/
